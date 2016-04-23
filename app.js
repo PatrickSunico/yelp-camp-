@@ -1,32 +1,18 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+
+
+    //models
+    Campground = require('./models/campground'),
+    seedDB = require('./seeds');
+
+
+    seedDB(); // exported from seeds.js
 
 //Add mongoose and connect our DB
 mongoose.connect("mongodb://localhost/yelp_camp");
-
-//Schema Setup
-var campgroundSchema = new mongoose.Schema({
-  campName: String,
-  image: String,
-  campDescription: String
-});
-
-//Create Campground model so we can use some mongoose methods
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-// Campground.create({
-//     campName: "Granite Hill",
-//     image: "http://i.telegraph.co.uk/multimedia/archive/01940/jollydays_1940549b.jpg",
-//     description: "This is a huge granite hill, No water"
-//   },function(err, campground){
-//     if(err) {
-//       console.log(err);
-//     } else {
-//       console.log(campground);
-//     }
-//   });
 
 //Parses data input inside the body
 app.use(bodyParser.urlencoded({extended:true}));
@@ -35,15 +21,26 @@ app.use(express.static("public"));
 //set the view engine to find ejs files
 app.set("view engine", "ejs");
 
+var paths = {
+  landing: 'pages/landing',
+  index: 'pages/index',
+  new: 'pages/formcampground',
+  show: 'pages/show'
+};
+
 //Set the home page or landing page
+//==========================================
 app.get("/", function(req,res){
 
   //render home page template
-  res.render("pages/landing");
+  res.render(paths.landing);
   // res.send("Welcome to Home");
 });
+//==========================================
+
 
 //INDEX ROUTE - show all campgrounds
+//==========================================
 app.get("/campgrounds", function(req,res){
 
   //Get all campgrounds from DB
@@ -52,13 +49,27 @@ app.get("/campgrounds", function(req,res){
     if(err){
       console.log(err);
     } else {
-      res.render("pages/index", {campgrounds: allCampgrounds})
+      res.render(paths.index, {campgrounds: allCampgrounds})
     }
   });
 });
+//==========================================
+
+
+//NEW Route
+//==========================================
+//NEW - SHOW form to create new campground
+//separate page or route to show the form to post a new campground
+// this form will be able to make a new campground post
+//This sends a postrequest to /campgrounds
+app.get("/campgrounds/new", function(req,res){
+  res.render("pages/formcampground");
+});
+//==========================================
 
 //CREATE ROUTE Add new campgrounds to DB
-//same route but as a post request
+//Post Request
+//==========================================
 app.post("/campgrounds" ,function(req, res){
   //Get campground form inputs using body parser
   //select the form and retrieve it's data from user input
@@ -79,20 +90,15 @@ app.post("/campgrounds" ,function(req, res){
     }
   });
 });
+//==========================================
 
-//NEW - SHOW form to create new campground
-//separate page or route to show the form to post a new campground
-// this form will be able to make a new campground post
-//This sends a postrequest to /campgrounds
-app.get("/campgrounds/new", function(req,res){
-  res.render("pages/formcampground");
-});
+
 
 //SHOW
 //shows more info about one campground
+//==========================================
 app.get("/campgrounds/:id", function(req,res){
   //find campground with database object ID
-  //i.e <a href="/campgrounds/<%= index._id %>" class="btn btn-primary">More Info</a>
   Campground.findById(req.params.id, function(err, foundCampground){ //get parameter id from campgrounds inside More info Button which links to index.id
     if(err){
       console.log(err);
@@ -102,6 +108,8 @@ app.get("/campgrounds/:id", function(req,res){
     }
   });
 });
+//==========================================
+
 
 app.listen(3000, function(){
   console.log("Server Listening");
