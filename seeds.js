@@ -22,7 +22,12 @@ function seedDB(){
    Campground.remove({}, function(err){
         if(err){
             console.log(err);
+<<<<<<< HEAD
         }
+=======
+        } 
+
+>>>>>>> 4991993837c79262aca512e31c6d396cfc6ce09f
          //add a few campgrounds
          //Loop through our predefined data the give it an argument named seed
         //seed is just the name of the argument that is going to be passed inside the forEach
