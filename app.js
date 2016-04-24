@@ -90,23 +90,9 @@ app.post("/campgrounds" ,function(req, res){
 });
 //==========================================
 
-
-
 //SHOW
 //shows more info about one campground
 //==========================================
-// app.get("/campgrounds/:id", function(req,res){
-//   //find campground with database object ID
-//   Campground.findById(req.params.id, function(err, foundCampground){ //get parameter id from campgrounds inside More info Button which links to index.id
-//     if(err){
-//       console.log(err);
-//     } else {
-//       //back from the DB pass in our foundCampground through our ejs file via this campgrounds property value.
-//       res.render("pages/show", {campgrounds: foundCampground});
-//     }
-//   });
-// });
-
 app.get("/campgrounds/:id", function(req, res){
     //find the campground with provided ID
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
