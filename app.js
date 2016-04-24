@@ -90,10 +90,7 @@ app.post("/campgrounds" ,function(req, res){
 });
 //==========================================
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b16d4c04ca498b86f94df06b6e447056947e151b
 //SHOW
 //shows more info about one campground
 //==========================================
