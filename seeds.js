@@ -23,6 +23,11 @@ function seedDB(){
         if(err){
             console.log(err);
         }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> b16d4c04ca498b86f94df06b6e447056947e151b
          //add a few campgrounds
          //Loop through our predefined data the give it an argument named seed
         //seed is just the name of the argument that is going to be passed inside the forEach
