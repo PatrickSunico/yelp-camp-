@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 //Parses data input inside the body
 app.use(bodyParser.urlencoded({extended:true}));
 //serve contents of the home page
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 //set the view engine to find ejs files
 app.set("view engine", "ejs");
 
