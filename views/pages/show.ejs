@@ -1,11 +1,15 @@
 
 <% include ../html-template/header.ejs %>
-<p><%= campgrounds.campName %></p>
+<p><%= campgrounds.name %></p>
 <img src="<%= campgrounds.image %>">
+<<<<<<< HEAD
+<p><%= campgrounds.description %></p>
+=======
 <p><%= campgrounds.campDescription %></p>
 <% campgrounds.comments.forEach(function(comment){ %>
     <p>
         <strong><%= comment.author %></strong> - <%= comment.text %>
     </p>
 <% }); %>
+>>>>>>> master
 <% include ../html-template/footer.ejs %>

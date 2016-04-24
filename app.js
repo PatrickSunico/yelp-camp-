@@ -3,11 +3,9 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require("mongoose"),
 
-
     //models
     Campground = require('./models/campground'),
     seedDB = require('./seeds');
-
 
     seedDB(); // exported from seeds.js
 
@@ -73,13 +71,13 @@ app.get("/campgrounds/new", function(req,res){
 app.post("/campgrounds" ,function(req, res){
   //Get campground form inputs using body parser
   //select the form and retrieve it's data from user input
-  var name = req.body.campName;
+  var name = req.body.name;
   var image = req.body.image;
-  var description = req.body.campDescription;
+  var description = req.body.description;
 
   //campName and image property values schema in DB
   //name and image values inputted by the user
-  var newCampground = {campName:name, image:image, campDescription:description} // store values from input into our DB
+  var newCampground = {name:name, image:image, description:description} // store values from input into our DB
 
   //Create a new Campground then save to DB
   Campground.create(newCampground, function(err, newlyCreated){
