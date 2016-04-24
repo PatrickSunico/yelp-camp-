@@ -1,7 +1,7 @@
 {
-  "name": "yelp-camp-v1",
-  "version": "1.0.0",
-  "description": "yelp-camp-v1",
+  "name": "yelp-camp-v4",
+  "version": "4.0.0",
+  "description": "yelp-camp-v4",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
