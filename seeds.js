@@ -4,17 +4,17 @@ var mongoose = require('mongoose'),
 
 //predefined data
 var data = [{
-    campName: 'Clouds Rest',
+    name: 'Clouds Rest',
     image: 'https://farm1.staticflickr.com/110/316612922_38fb0698f5.jpg',
-    campDescription: 'blah blah blah'
+    description: 'blah blah blah'
 }, {
-    campName: 'Megaton Valley',
+    name: 'Megaton Valley',
     image: 'https://farm8.staticflickr.com/7252/7626464792_3e68c2a6a5.jpg',
-    campDescription: 'blah blah blah'
+    description: 'blah blah blah'
 }, {
-    campName: 'Goodsprings',
+    name: 'Goodsprings',
     image: 'http://i.telegraph.co.uk/multimedia/archive/01940/jollydays_1940549b.jpg',
-    campDescription: 'blah blah blah'
+    description: 'blah blah blah'
 }];
 
 function seedDB(){
@@ -22,8 +22,7 @@ function seedDB(){
    Campground.remove({}, function(err){
         if(err){
             console.log(err);
-        } 
-
+        }
          //add a few campgrounds
          //Loop through our predefined data the give it an argument named seed
         //seed is just the name of the argument that is going to be passed inside the forEach

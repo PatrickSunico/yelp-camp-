@@ -3,9 +3,9 @@
 var mongoose = require('mongoose');
 
 var campgroundSchema = new mongoose.Schema({
-  campName: String,
+  name: String,
   image: String,
-  campDescription: String,
+  description: String,
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
