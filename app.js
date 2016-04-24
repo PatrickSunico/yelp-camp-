@@ -5,6 +5,7 @@ var express = require('express'),
 
     //models
     Campground = require('./models/campground'),
+    Comment = require('./models/comments'),
     seedDB = require('./seeds');
 
     seedDB(); // exported from seeds.js
@@ -23,7 +24,8 @@ var paths = {
   landing: 'pages/landing',
   index: 'pages/index',
   new: 'pages/formcampground',
-  show: 'pages/show'
+  show: 'pages/show',
+  comments: 'comments/comments'
 };
 
 //Set the home page or landing page
@@ -102,11 +104,54 @@ app.get("/campgrounds/:id", function(req, res){
         } else {
             console.log(foundCampground)
             //render show template with that campground
-            res.render(paths.show, {campgrounds: foundCampground});
+            res.render(paths.show, {campground: foundCampground});
         }
     });
 });
 //==========================================
+
+
+
+//Comments Route
+//New Route
+//==========================================
+
+app.get('/campgrounds/:id/comments/new', function(req, res) {
+
+  Campground.findById(req.params.id, function(err, campground){
+    if(err){
+      console.log(err);
+    } else {
+      res.render(paths.comments, {campground: campground})
+    }
+  });
+});
+
+//==========================================
+
+
+//Create Route
+app.post('/campgrounds/:id/comments', function(req, res) {
+  // var text = req.comments.params.id;
+
+  Campground.findById(req.params.id, function(err, campground){
+    if(err) {
+      console.log(err);
+    } else {
+      Comment.create(req.body.comment, function(err, comment){
+        if(err) {
+          console.log(err);
+        } else {
+          campground.comments.push(comment);
+          campground.save();
+          res.redirect('/campgrounds/' + campground._id);
+        }
+      });
+    }
+
+  });
+});
+
 
 
 app.listen(3000, function(){
