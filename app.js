@@ -131,9 +131,9 @@ app.get('/campgrounds/:id/comments/new', function(req, res) {
 
 
 //Create Route
-app.post('/campgrounds/:id/comments', function(req, res) {
-  // var text = req.comments.params.id;
 
+//Chaining NEW and Create
+app.post('/campgrounds/:id/comments', function(req, res) {
   Campground.findById(req.params.id, function(err, campground){
     if(err) {
       console.log(err);
@@ -144,11 +144,10 @@ app.post('/campgrounds/:id/comments', function(req, res) {
         } else {
           campground.comments.push(comment);
           campground.save();
-          res.redirect('/campgrounds/' + campground._id);
+          res.redirect('/campgrounds/' + campground._id); //redirects back to the campground specific to it's id
         }
       });
     }
-
   });
 });
 
