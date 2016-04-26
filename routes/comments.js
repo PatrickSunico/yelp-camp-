@@ -1,14 +1,11 @@
 //Express Router
 var express = require('express');
-var router = express.Router();
+var router = express.Router({mergeParams:true});
 
 //DB Model imports
 var Campground = require('../models/campground'),
     Comment = require('../models/comments');
 
-
-
-//paths
 var paths = {
   landing: 'pages/landing',
   index: 'pages/index',
@@ -32,7 +29,7 @@ var auth = {
 // if the user is loggedin it call next as we can see in the isLoggedIn function,
 // which will move on the do the callback function to render the campground.
 
-router.get('/campgrounds/:id/comments/new',isLoggedIn, function(req, res) {
+router.get('/new',isLoggedIn, function(req, res) {
 
   Campground.findById(req.params.id, function(err, campground) {
     if (err) {
@@ -51,7 +48,7 @@ router.get('/campgrounds/:id/comments/new',isLoggedIn, function(req, res) {
 //Create Route
 //==========================================
 //Chaining NEW and Create
-router.post('/campgrounds/:id/comments', function(req, res) {
+router.post('/', function(req, res) {
   Campground.findById(req.params.id, function(err, campground) {
     if (err) {
       console.log(err);
