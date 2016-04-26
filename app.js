@@ -27,6 +27,12 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
+//if user is logged in change navbar and display 2 buttons else if no logged in
+app.use(function(req,res,next){
+  res.locals.currentUser = req.user;
+  next();
+});
+
 //============================================================
 
 //Passport Configuration
@@ -83,6 +89,7 @@ app.get("/", function(req, res) {
 //==========================================
 app.get("/campgrounds", function(req, res) {
 
+  var user = req.user;
   //Get all campgrounds from DB
   Campground.find({}, function(err, allCampgrounds) {
     if (err) {
