@@ -17,7 +17,8 @@ var express = require('express'),
   Comment = require('./models/comments'),
   User = require('./models/users'),
   seedDB = require('./seeds');
-  seedDB(); // exported from seeds.js
+  //seed DB
+  // seedDB(); // exported from seeds.js
 //============================================================
 
 //exported Routes

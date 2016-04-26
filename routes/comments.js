@@ -57,8 +57,22 @@ router.post('/', function(req, res) {
         if (err) {
           console.log(err);
         } else {
+          //add username and id to comment then save the comment
+          //since we are inside the comment.create block,
+          //whenever a comment is created we use req.user.id and req.user.username
+          //then just plugin them right in to comment.author, comment meaning the callback argument from our comment model, along with it's value method and id.
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+
+          //save comment
+          //then we save the comment persistently at first,
+          comment.save();
+
+          //then move on to push the comment to the campground schema
           campground.comments.push(comment);
           campground.save();
+
+          console.log(comment);
           res.redirect('/campgrounds/' + campground._id); //redirects back to the campground specific to it's id
         }
       });
