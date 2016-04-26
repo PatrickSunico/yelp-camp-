@@ -15,7 +15,7 @@ var express = require('express'),
 seedDB(); // exported from seeds.js
 
 //Add mongoose and connect our DB
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect('mongodb://localhost/yelp_camp');
 
 //Express Settings
 //============================================================
@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 //serve contents of the home page
-app.use(express.static(__dirname + "/public"));
-app.set("view engine", "ejs");
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
 
 //if user is logged in change navbar and display 2 buttons else if no logged in
 app.use(function(req,res,next){
@@ -76,7 +76,7 @@ var auth = {
 
 //Set the home page or landing page
 //==========================================
-app.get("/", function(req, res) {
+app.get('/', function(req, res) {
 
   //render home page template
   res.render(paths.landing);
@@ -87,7 +87,7 @@ app.get("/", function(req, res) {
 
 //INDEX ROUTE - show all campgrounds
 //==========================================
-app.get("/campgrounds", function(req, res) {
+app.get('/campgrounds', function(req, res) {
 
   var user = req.user;
   //Get all campgrounds from DB
@@ -97,7 +97,7 @@ app.get("/campgrounds", function(req, res) {
     } else {
       res.render(paths.index, {
         campgrounds: allCampgrounds
-      })
+      });
     }
   });
 });
@@ -110,15 +110,15 @@ app.get("/campgrounds", function(req, res) {
 //separate page or route to show the form to post a new campground
 // this form will be able to make a new campground post
 //This sends a postrequest to /campgrounds
-app.get("/campgrounds/new", function(req, res) {
-  res.render("pages/formcampground");
+app.get('/campgrounds/new', function(req, res) {
+  res.render(paths.new);
 });
 //==========================================
 
 //CREATE ROUTE Add new campgrounds to DB
 //Post Request
 //==========================================
-app.post("/campgrounds", function(req, res) {
+app.post('/campgrounds', function(req, res) {
   //Get campground form inputs using body parser
   //select the form and retrieve it's data from user input
   var name = req.body.name;
@@ -131,14 +131,14 @@ app.post("/campgrounds", function(req, res) {
       name: name,
       image: image,
       description: description
-    } // store values from input into our DB
+    }; // store values from input into our DB
 
   //Create a new Campground then save to DB
   Campground.create(newCampground, function(err, newlyCreated) {
     if (err) { //if err console.log error
       console.log(err);
     } else {
-      res.redirect("/campgrounds"); // else redirect back to campgrounds page
+      res.redirect('/campgrounds'); // else redirect back to campgrounds page
     }
   });
 });
@@ -148,13 +148,13 @@ app.post("/campgrounds", function(req, res) {
 //SHOW
 //shows more info about one campground
 //==========================================
-app.get("/campgrounds/:id", function(req, res) {
+app.get('/campgrounds/:id', function(req, res) {
   //find the campground with provided ID
-  Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
+  Campground.findById(req.params.id).populate('comments').exec(function(err, foundCampground) {
     if (err) {
       console.log(err);
     } else {
-      console.log(foundCampground)
+      console.log(foundCampground);
         //render show template with that campground
       res.render(paths.show, {
         campground: foundCampground
@@ -184,7 +184,7 @@ app.get('/campgrounds/:id/comments/new',isLoggedIn, function(req, res) {
     } else {
       res.render(paths.comments, {
         campground: campground
-      })
+      });
     }
   });
 });
@@ -286,11 +286,9 @@ function isLoggedIn(req, res,next) {
   }
   res.redirect('/login');
 }
-
 //==========================================
 
 
-
 app.listen(3000, function() {
-  console.log("Server Listening");
+  console.log('Server Listening');
 });
