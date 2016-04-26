@@ -1,3 +1,5 @@
+// Here we declare predefined data to be seeded in our website for testing purposes
+// We also need to require mongoose and our Campground and Comment Data models so our seedDB function can call a reference or 'reference' their schema defined in our models folder.
 var mongoose = require('mongoose'),
     Campground = require('./models/campground');
     Comment = require('./models/comments');
@@ -58,4 +60,4 @@ function seedDB(){
     //End seed Block
 }
 
-module.exports = seedDB;
+module.exports = seedDB; // export function to main app.js
