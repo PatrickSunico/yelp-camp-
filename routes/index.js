@@ -8,6 +8,9 @@ var passport = require('passport');
 //DB Model imports
 var User = require('../models/users');
 
+var paths = require('../config.js');
+var auth = require('../config.js');
+
 
 
 

@@ -4,8 +4,6 @@ var router = express.Router(); // A router object is an isolated instance of mid
 //DB Model imports
 var Campground = require('../models/campground');
 
-
-//paths
 var paths = {
   landing: 'pages/landing',
   index: 'pages/index',
@@ -21,7 +19,7 @@ var auth = {
 
 //INDEX ROUTE - show all campgrounds
 //==========================================
-router.get('/campgrounds', function(req, res) {
+router.get('/', function(req, res) {
 
   var user = req.user;
   //Get all campgrounds from DB
@@ -44,7 +42,7 @@ router.get('/campgrounds', function(req, res) {
 //separate page or route to show the form to post a new campground
 // this form will be able to make a new campground post
 //This sends a postrequest to /campgrounds
-router.get('/campgrounds/new', function(req, res) {
+router.get('/new', function(req, res) {
   res.render(paths.new);
 });
 //==========================================
@@ -52,7 +50,7 @@ router.get('/campgrounds/new', function(req, res) {
 //CREATE ROUTE Add new campgrounds to DB
 //Post Request
 //==========================================
-router.post('/campgrounds', function(req, res) {
+router.post('/', function(req, res) {
   //Get campground form inputs using body parser
   //select the form and retrieve it's data from user input
   var name = req.body.name;
@@ -82,7 +80,7 @@ router.post('/campgrounds', function(req, res) {
 //SHOW
 //shows more info about one campground
 //==========================================
-router.get('/campgrounds/:id', function(req, res) {
+router.get('/:id', function(req, res) {
   //find the campground with provided ID
   Campground.findById(req.params.id).populate('comments').exec(function(err, foundCampground) {
     if (err) {
@@ -96,13 +94,7 @@ router.get('/campgrounds/:id', function(req, res) {
     }
   });
 });
-//==========================================
-function isLoggedIn(req, res,next) {
-  if(req.isAuthenticated()) { // then move on the the specific page
-    return next();
-  }
-  res.redirect('/login');
-}
+//===========================================
 
 
 module.exports = router;

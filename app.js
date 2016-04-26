@@ -76,10 +76,11 @@ app.use(function(req,res,next){
 
 //Use imports from routes folder
 //============================================================
+//with this we don't need to append /campgrounds into following paths i.e /campgrounds/new or /campgrounds/:id
 
 app.use(indexRoutes);
-app.use(commentRoutes);
-app.use(campgroundRoutes);
+app.use('/campgrounds/:id/comments',commentRoutes);
+app.use('/campgrounds',campgroundRoutes);
 
 //============================================================
 
