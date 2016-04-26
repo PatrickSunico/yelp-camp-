@@ -29,31 +29,31 @@ function seedDB(){
          //add a few campgrounds
          //Loop through our predefined data the give it an argument named seed
         //seed is just the name of the argument that is going to be passed inside the forEach
-        data.forEach(function(seed){
-            Campground.create(seed, function(err, campground){
-                if(err){
-                    console.log(err)
-                } else {
-                    console.log("added a campground");
-                    //create a comment
-                    Comment.create( //associate a comment from the looped predefined data
-                        {
-                            text: "This place is great, but I wish there was internet",
-                            author: "Homer"
-                        }, function(err, comment){ //err handling callbacks
-                            if(err){
-                                console.log(err);
-                            } else {
-                                campground.comments.push(comment); //push each campground and associate it with a comment
-                                campground.save(); //save it through the DB
-                                console.log("Created new comment");
-                            }
-                        });
-                    //End else block
-                }
-            });
-            //End forEach block
-        });
+        // data.forEach(function(seed){
+        //     Campground.create(seed, function(err, campground){
+        //         if(err){
+        //             console.log(err)
+        //         } else {
+        //             console.log("added a campground");
+        //             //create a comment
+        //             Comment.create( //associate a comment from the looped predefined data
+        //                 {
+        //                     text: "This place is great, but I wish there was internet",
+        //                     author: "Homer"
+        //                 }, function(err, comment){ //err handling callbacks
+        //                     if(err){
+        //                         console.log(err);
+        //                     } else {
+        //                         campground.comments.push(comment); //push each campground and associate it with a comment
+        //                         campground.save(); //save it through the DB
+        //                         console.log("Created new comment");
+        //                     }
+        //                 });
+        //             //End else block
+        //         }
+        //     });
+        //     //End forEach block
+        // });
         //end Campground remove block
     });
 
