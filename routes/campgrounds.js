@@ -42,7 +42,7 @@ router.get('/', function(req, res) {
 //separate page or route to show the form to post a new campground
 // this form will be able to make a new campground post
 //This sends a postrequest to /campgrounds
-router.get('/new', function(req, res) {
+router.get('/new', isLoggedIn, function(req, res) {
   res.render(paths.new);
 });
 //==========================================
@@ -53,23 +53,32 @@ router.get('/new', function(req, res) {
 router.post('/', function(req, res) {
   //Get campground form inputs using body parser
   //select the form and retrieve it's data from user input
-  var name = req.body.name;
-  var image = req.body.image;
-  var description = req.body.description;
+  var campInfo = {
+    name: req.body.name,
+    image: req.body.image,
+    description: req.body.description
+  };
+
+  //author object
+  var author = {
+    id: req.user._id,
+    username: req.user.username
+  };
 
   //campName and image property values schema in DB
   //name and image values inputted by the user
   var newCampground = {
-      name: name,
-      image: image,
-      description: description
+      campInfo: campInfo,
+      author: author
     }; // store values from input into our DB
+
 
   //Create a new Campground then save to DB
   Campground.create(newCampground, function(err, newlyCreated) {
     if (err) { //if err console.log error
       console.log(err);
     } else {
+      console.log(newlyCreated);
       res.redirect('/campgrounds'); // else redirect back to campgrounds page
     }
   });
@@ -95,6 +104,18 @@ router.get('/:id', function(req, res) {
   });
 });
 //===========================================
+
+
+//isLoggedIn Middleware
+//===========================================
+function isLoggedIn(req, res,next) {
+  if(req.isAuthenticated()) { // then move on the the specific page
+    return next();
+  }
+  res.redirect('/login');
+}
+//===========================================
+
 
 
 module.exports = router;
