@@ -7,6 +7,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
+  methodOverride = require('method-override'),
   session = require('express-session');
 //============================================================
 
@@ -43,7 +44,7 @@ app.use(bodyParser.urlencoded({
 //serve contents of the home page
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
-
+app.use(methodOverride('_method'));
 //============================================================
 
 
