@@ -7,6 +7,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
+  flash = require('connect-flash'),
   methodOverride = require('method-override'),
   session = require('express-session');
 //============================================================
@@ -43,6 +44,7 @@ app.use(bodyParser.urlencoded({
 }));
 //serve contents of the home page
 app.use(express.static(__dirname + '/public'));
+app.use(flash());
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 //============================================================
@@ -71,6 +73,8 @@ passport.deserializeUser(User.deserializeUser());
 //if user is logged in change navbar and display 2 buttons else if no logged in
 app.use(function(req,res,next){
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
   next();
 });
 //============================================================
