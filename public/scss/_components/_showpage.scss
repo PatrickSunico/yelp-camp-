@@ -1,3 +1,4 @@
+//Campground Section
 .thumbnail {
   padding: 0;
     img {
@@ -11,6 +12,9 @@
     }
 }
 
-.btn {
-  border-radius: 0;
+// Comment Section
+.well {
+  .deleteComment {
+    display: inline;
+  }
 }

@@ -1,0 +1,25 @@
+<% include ../html-template/header.ejs %>
+  <!--HTML Header-->
+  <div class="container">
+    <div class="row">
+      <h1 style="text-align: center"> Edit </h1>
+      <!-- send Post Request of whatever value inside of name="campground"  -->
+      <div style="width: 50%; margin: 25px auto;">
+
+        <form action="/campgrounds/<%= commentID %>/comments/<%=comment._id%>?_method=PUT>" method="POST">
+          <div class="form-group">
+            <input class="form-control" type="text" name="comment[text]" value="<%=comment.text%>">
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block">Submit</button>
+          </div>
+        </form>
+        <a href="/campgrounds">Go back</a>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <% include ../html-template/footer.ejs %>
+    <!-- Footer -->

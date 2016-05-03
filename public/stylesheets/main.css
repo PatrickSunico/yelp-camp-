@@ -19,10 +19,14 @@
   display: inline;
 }
 
-.btn {
-  border-radius: 0;
+.well .deleteComment {
+  display: inline;
 }
 
 nav.navbar {
+  border-radius: 0;
+}
+
+.btn {
   border-radius: 0;
 }

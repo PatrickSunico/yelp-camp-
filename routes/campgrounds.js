@@ -106,13 +106,17 @@ router.get('/:id', function(req, res) {
 //===========================================
 
 
-//Edit Campground route + checkOwnership middleware
+//Edit Campground route + checkCampgroundOwnership middleware
 //===========================================
 
-router.get('/:id/edit',checkOwnership, function(req, res) {
+router.get('/:id/edit',checkCampgroundOwnership, function(req, res) {
 
-  Campground.findById(req.params.id, function(foundCampground) {
-    res.render(paths.edit, {campground: foundCampground});
+  Campground.findById(req.params.id, function(err,foundCampground) {
+    if(err) {
+      res.redirect('back');
+    } else {
+      res.render(paths.edit, {campground: foundCampground});
+    }
   });
 });
 
@@ -135,7 +139,7 @@ router.put('/:id', function(req, res) {
 //Delete Route
 //===========================================
 
-router.delete('/:id',checkOwnership, function(req, res) {
+router.delete('/:id',checkCampgroundOwnership, function(req, res) {
 
     Campground.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
@@ -163,7 +167,7 @@ function isLoggedIn(req, res, next) {
 
 //Campground Ownership Authorization
 //===========================================
-function checkOwnership(req,res,next) {
+function checkCampgroundOwnership(req,res,next) {
   //is userLoggedIn if so run the code below and find the Campground by it's object ID
   //else if userNotLoggedIn send an error message.
   if (req.isAuthenticated()) {
@@ -173,9 +177,7 @@ function checkOwnership(req,res,next) {
           } else {
               //does user own the campground if yes render the page
               if (foundCampground.author.id.equals(req.user._id)) {
-                  res.render(paths.edit, {
-                      campground: foundCampground
-                  });
+                  next();
               } else { //else if user does not own the campground send a error message
                 res.redirect('back');
               }
