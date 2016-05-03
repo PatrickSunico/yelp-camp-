@@ -1,14 +1,12 @@
-// All Middleware
-var Campground = require('../models/campground');
-var Comment = require('../models/comments');
+var Campground = require('../models/campground'),
+    Comment = require('../models/comments');
 
-
+//Middleware
 var middlewareObj = {};
 
-middlewareObj.checkCampgroundOwnership = function() {
-  //Campground Ownership Authorization
-  //===========================================
-  function checkCampgroundOwnership(req,res,next) {
+middlewareObj.checkCampgroundOwnership = function(req, res, next) {
+    //Campground Ownership Authorization
+    //===========================================
     //is userLoggedIn if so run the code below and find the Campground by it's object ID
     //else if userNotLoggedIn send an error message.
     if (req.isAuthenticated()) {
@@ -20,21 +18,21 @@ middlewareObj.checkCampgroundOwnership = function() {
                 if (foundCampground.author.id.equals(req.user._id)) {
                     next();
                 } else { //else if user does not own the campground send a error message
-                  res.redirect('back');
+                    res.redirect('back');
                 }
             }
         });
     } else { //userNotLoggedIn error message
         res.redirect('back');
     }
-  }
-  //===========================================
+
+    //===========================================
 };
 
-middlewareObj.checkCommentOwnership = function() {
-  //Campground Comment Ownership Authorization
-  //===========================================
-  function checkCommentOwnership(req,res,next) {
+middlewareObj.checkCommentOwnership = function(req, res, next) {
+
+    //Campground Comment Ownership Authorization
+    //===========================================
     //is userLoggedIn if so run the code below and find the Campground by it's object ID
     //else if userNotLoggedIn send an error message.
     if (req.isAuthenticated()) {
@@ -46,28 +44,22 @@ middlewareObj.checkCommentOwnership = function() {
                 if (foundComment.author.id.equals(req.user._id)) {
                     next();
                 } else { //else if user does not own the campground send a error message
-                  res.redirect('back');
+                    res.redirect('back');
                 }
             }
         });
     } else { //userNotLoggedIn error message
         res.redirect('back');
     }
-  }
-  //==========================================
+    //==========================================
+
 };
 
-
-middlewareObj.isLoggedIn = function() {
-  //Authentication Middleware
-  //==========================================
-  function isLoggedIn(req, res,next) {
+middlewareObj.isLoggedIn = function(req,res,next) {
     if(req.isAuthenticated()) { // then move on the the specific page
       return next();
     }
     res.redirect('/login');
-  }
-  //==========================================
 };
 
 module.exports = middlewareObj;
