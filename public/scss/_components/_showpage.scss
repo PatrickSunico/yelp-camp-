@@ -1,3 +1,4 @@
+//Campground Section
 .thumbnail {
   padding: 0;
     img {
@@ -6,4 +7,14 @@
     .caption-full {
       padding: 9px;
     }
+    .deleteForm {
+      display:inline;
+    }
+}
+
+// Comment Section
+.well {
+  .deleteComment {
+    display: inline;
+  }
 }

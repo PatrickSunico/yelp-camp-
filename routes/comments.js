@@ -11,7 +11,9 @@ var paths = {
   index: 'pages/index',
   new: 'pages/formcampground',
   show: 'pages/show',
-  comments: 'comments/comments'
+  //comments
+  showcomments: 'comments/showcomments',
+  editComment: 'comments/editcomment'
 };
 
 var auth = {
@@ -35,7 +37,7 @@ router.get('/new',isLoggedIn, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render(paths.comments, {
+      res.render(paths.showcomments, {
         campground: campground
       });
     }
@@ -80,14 +82,89 @@ router.post('/', function(req, res) {
   });
 });
 
+//Show the comment edit route
+//==========================================
+
+router.get('/:commentID/edit', checkCommentOwnership, function(req,res){
+  Comment.findById(req.params.commentID, function(err, foundComment){ //comment_id define inside of the the route
+    if(err) {
+      res.redirect('back');
+    } else {
+      res.render(paths.editComment,{commentID: req.params.id, comment: foundComment});
+    }
+  });
+});
+
 //==========================================
 
 
+//Update Post Route
+//==========================================
+router.post('/:commentID', function(req,res){
+  Comment.findByIdAndUpdate(req.params.commentID, req.body.comment, function(err, updatedComment){
+    if(err) {
+      res.redirect('back');
+    } else {
+      res.redirect('/campgrounds/' + req.params.id); //redirect back to the campground by it's ID
+    }
+  });
+});
+//==========================================
+
+//Comment Delete Route
+//==========================================
+router.delete('/:commentID',checkCommentOwnership, function(req,res){
+  //findByIdAndRemove
+  Comment.findByIdAndRemove(req.params.commentID, function(err){
+    if(err){
+      res.redirect('back');
+    } else {
+      res.redirect('/campgrounds/' + req.params.id);
+    }
+  });
+});
+//==========================================
+
+//Campground Comment Ownership Authorization
+//===========================================
+function checkCommentOwnership(req,res,next) {
+  //is userLoggedIn if so run the code below and find the Campground by it's object ID
+  //else if userNotLoggedIn send an error message.
+  if (req.isAuthenticated()) {
+      Comment.findById(req.params.commentID, function(err, foundComment) {
+          if (err) {
+              res.redirect('back');
+          } else {
+              //does user own the comment if yes render the page
+              if (foundComment.author.id.equals(req.user._id)) {
+                  next();
+              } else { //else if user does not own the campground send a error message
+                res.redirect('back');
+              }
+          }
+      });
+  } else { //userNotLoggedIn error message
+      res.redirect('back');
+  }
+}
+//==========================================
+
+
+
+//Authentication Middleware
+//==========================================
 function isLoggedIn(req, res,next) {
   if(req.isAuthenticated()) { // then move on the the specific page
     return next();
   }
   res.redirect('/login');
 }
+//==========================================
+
+
+
+
+
+
 
 module.exports = router;
