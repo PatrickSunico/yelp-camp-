@@ -1,0 +1,20 @@
+//Campground Section
+.thumbnail {
+  padding: 0;
+    img {
+      width: 100%;
+    }
+    .caption-full {
+      padding: 9px;
+    }
+    .deleteForm {
+      display:inline;
+    }
+}
+
+// Comment Section
+.well {
+  .deleteComment {
+    display: inline;
+  }
+}

@@ -1,0 +1,23 @@
+//forms set for edit.ejs, formcampground.ejs , editcomment.ejs and showcomment.ejs
+#wrapper {
+  h1 {
+    text-align: center;
+  }
+  .form-camp {
+    width:50%;
+    margin: 25px auto;
+  }
+}
+
+//Set form styles for login.ejs and register.ejs
+
+#authentication {
+  h1 {
+    text-align: center;
+  }
+
+  .auth-forms{
+    width: 30%;
+    margin: 25px auto;
+  }
+}

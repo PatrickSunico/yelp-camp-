@@ -1,0 +1,94 @@
+#wrapper h1, #wrapper #landing-wrapper .content h3, #landing-wrapper .content #wrapper h3 {
+  text-align: center;
+}
+
+#wrapper .form-camp {
+  width: 50%;
+  margin: 25px auto;
+}
+
+#authentication h1, #authentication #landing-wrapper .content h3, #landing-wrapper .content #authentication h3 {
+  text-align: center;
+}
+
+#authentication .auth-forms {
+  width: 30%;
+  margin: 25px auto;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+}
+
+.thumbnail .deleteForm {
+  display: inline;
+}
+
+.well .deleteComment {
+  display: inline;
+}
+
+nav.navbar {
+  border-radius: 0;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  /*font-family: "Lato";*/
+}
+
+#landing-wrapper .bg {
+  min-height: 100%;
+  min-width: 1024px;
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: url("https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?dpr=2&fit=crop&fm=jpg&h=825&ixlib=rb-0.3.5&q=50&w=1450");
+  background-size: cover;
+  background-position: center;
+  transition: background 1.5s linear;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: background-image 1.5s linear;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+#landing-wrapper .content {
+  padding-top: 20%;
+  text-align: center;
+}
+
+#landing-wrapper .content h1, #landing-wrapper .content h3 {
+  text-shadow: 0 4px 3px rgba(0, 0, 0, 0.4), 0 8px 13px rgba(0, 0, 0, 0.1), 0 18px 23px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  font-size: 5em;
+  color: white;
+}
+
+#landing-wrapper .content h3 {
+  font-weight: normal;
+  font-size: 1.8em;
+}
+
+#landing-wrapper .content hr {
+  width: 400px;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
