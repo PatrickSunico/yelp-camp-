@@ -84,7 +84,7 @@ app.use(function(req,res,next){
 //============================================================
 //with this we don't need to append /campgrounds into following paths i.e /campgrounds/new or /campgrounds/:id
 
-app.use(indexRoutes);
+app.use('/',indexRoutes);
 app.use('/campgrounds/:id/comments',commentRoutes);
 app.use('/campgrounds',campgroundRoutes);
 
