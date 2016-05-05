@@ -1,4 +1,4 @@
-## Please see master branch for deployed application as the other branches is no longer maintained and it's purpose is just for reference only.
+## Please see yelp-camp-deployed repo for deployed application as the other branches is no longer maintained and it's purpose is just for reference only.
 
 # yelp-camp
 
